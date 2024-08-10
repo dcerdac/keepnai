@@ -1,6 +1,6 @@
-markdownCopy# My First Dash App
+# KeepNAI
 
-This is a simple Dash application that displays a bar chart of fruit amounts in different cities.
+This is a simple Dash application that displays wildfire areas of interest.
 
 ## Prerequisites
 
@@ -13,7 +13,7 @@ Before you begin, ensure you have met the following requirements:
 To install the app, follow these steps:
 
 1. Clone the repository:
-git clone https://github.com/yourusername/your-repo-name.git
+git clone https://github.com/yourusername/keepnai.git
 cd your-repo-name
 Copy
 2. Create a virtual environment:
@@ -63,7 +63,7 @@ If you want to contact me, you can reach me at `<your_email@example.com>`.
 
 ## License
 
-This project uses the following license: `<license_name>`.
-You can now copy this entire block of text and paste it into your README.md file. Remember to replace the placeholders (like yourusername, your-repo-name, <your_email@example.com>, and <license_name>) with your actual information.
+This project uses the following license: `<KeepNAI>`.
+You can now copy this entire block of text and paste it into your README.md file. Remember to replace the placeholders (like yourusername, your-repo-name, <your_email@example.com>, and <KeepNAI>) with your actual information.
 After pasting this into your README.md file in VS Code, you can save the file and then commit and push it to your GitHub repository as previously instructed.
 Is there anything else you'd like to modify in the README or any other part of your project?
