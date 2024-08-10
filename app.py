@@ -1,8 +1,9 @@
 import dash
 from dash import dcc, html
-from dash.dependencies import Input, Output
-
+from dash.dependencies import Input, Output, State
 import plotly.express as px
+import pandas as pd
+import plotly.graph_objects as go
 import pandas as pd
 
 # Initialize the Dash app
@@ -19,14 +20,26 @@ df = pd.DataFrame({
 app.layout = html.Div([
     html.Div([
         html.Div([
-            html.H1("My Dash App", style={'color': 'white', 'margin-bottom': '50px'}),
-            html.Button('Inicio', id='tab-inicio', n_clicks=0, className='tab-button'),
+            html.H1("KeepNAI", style={'color': 'white', 'margin-bottom': '50px'}),
+            html.Button('Mapa', id='tab-inicio', n_clicks=0, className='tab-button'),
             html.Button('Resources', id='tab-resources', n_clicks=0, className='tab-button'),
             html.Button('Information', id='tab-information', n_clicks=0, className='tab-button'),
             html.Button('Configuración', id='tab-configuracion', n_clicks=0, className='tab-button'),
         ], className='sidebar'),
         html.Div(id='page-content', className='content')
-    ], className='app-container')
+    ], className='app-container'),
+    
+    # Hidden div to store all components
+    html.Div([
+        dcc.Dropdown(
+            id='city-dropdown',
+            options=[{'label': i, 'value': i} for i in df['City'].unique()],
+            value='SF',
+            className='dropdown'
+        ),
+        dcc.Graph(id='fruit-graph'),
+        dcc.Graph(id='chile-map')
+    ], style={'display': 'none'})
 ])
 
 @app.callback(
@@ -39,9 +52,28 @@ app.layout = html.Div([
 def display_page(btn1, btn2, btn3, btn4):
     ctx = dash.callback_context
     if not ctx.triggered:
-        return html.Div([
-            html.H3('Inicio'),
+        return render_inicio()
+    else:
+        button_id = ctx.triggered[0]['prop_id'].split('.')[0]
+        if button_id == 'tab-inicio':
+            return render_inicio()
+        elif button_id == 'tab-resources':
+            return render_resources()
+        elif button_id == 'tab-information':
+            return render_information()
+        elif button_id == 'tab-configuracion':
+            return render_configuracion()
+
+def render_inicio():
+    return html.Div([
+        html.H3('Inicio'),
+        html.Div([
             html.Div([
+                html.H4('Chile Landscape'),
+                dcc.Graph(id='chile-map')
+            ], className='card'),
+            html.Div([
+                html.H4('Fruit Data'),
                 dcc.Dropdown(
                     id='city-dropdown',
                     options=[{'label': i, 'value': i} for i in df['City'].unique()],
@@ -51,42 +83,31 @@ def display_page(btn1, btn2, btn3, btn4):
                 dcc.Graph(id='fruit-graph')
             ], className='card')
         ])
-    else:
-        button_id = ctx.triggered[0]['prop_id'].split('.')[0]
-        if button_id == 'tab-inicio':
-            return html.Div([
-                html.H3('Inicio'),
-                html.Div([
-                    dcc.Dropdown(
-                        id='city-dropdown',
-                        options=[{'label': i, 'value': i} for i in df['City'].unique()],
-                        value='SF',
-                        className='dropdown'
-                    ),
-                    dcc.Graph(id='fruit-graph')
-                ], className='card')
-            ])
-        elif button_id == 'tab-resources':
-            return html.Div([
-                html.H3('Resources'),
-                html.Div([
-                    html.P('This is the content of the Resources tab.')
-                ], className='card')
-            ])
-        elif button_id == 'tab-information':
-            return html.Div([
-                html.H3('Information'),
-                html.Div([
-                    html.P('This is the content of the Information tab.')
-                ], className='card')
-            ])
-        elif button_id == 'tab-configuracion':
-            return html.Div([
-                html.H3('Configuración'),
-                html.Div([
-                    html.P('This is the content of the Configuración tab.')
-                ], className='card')
-            ])
+    ])
+
+def render_resources():
+    return html.Div([
+        html.H3('Resources'),
+        html.Div([
+            html.P('This is the content of the Resources tab.')
+        ], className='card')
+    ])
+
+def render_information():
+    return html.Div([
+        html.H3('Information'),
+        html.Div([
+            html.P('This is the content of the Information tab.')
+        ], className='card')
+    ])
+
+def render_configuracion():
+    return html.Div([
+        html.H3('Configuración'),
+        html.Div([
+            html.P('This is the content of the Configuración tab.')
+        ], className='card')
+    ])
 
 @app.callback(
     Output('fruit-graph', 'figure'),
@@ -100,6 +121,32 @@ def update_graph(selected_city):
         paper_bgcolor='rgba(0,0,0,0)',
         font_color='#2c3e50'
     )
+    return fig
+
+@app.callback(
+    Output('chile-map', 'figure'),
+    Input('tab-inicio', 'n_clicks')
+)
+def update_map(_):
+    fig = go.Figure(go.Scattermapbox(
+        lat=[-33.4489],
+        lon=[-70.6693],
+        mode='markers',
+        marker=go.scattermapbox.Marker(size=9),
+        text=['Santiago'],
+    ))
+
+    fig.update_layout(
+        mapbox=dict(
+            style='open-street-map',
+            center=dict(lat=-33.4489, lon=-70.6693),
+            zoom=4,
+        ),
+        showlegend=False,
+        height=600,
+        margin={"r":0,"t":0,"l":0,"b":0}
+    )
+
     return fig
 
 # Run the app
