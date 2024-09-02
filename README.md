@@ -1,69 +1,118 @@
-# KeepNAI
+# Fire Eye Dashboard
 
-This is a simple Dash application that displays wildfire areas of interest.
+**Fire Eye Dashboard** is a web application designed for the management and monitoring of emergencies, specifically fires, by emergency personnel and local users. The application allows visualization of incidents, available resources, weather conditions, and more, all in an intuitive and easy-to-use interface.
 
-## Prerequisites
+## Table of Contents
 
-Before you begin, ensure you have met the following requirements:
-* You have installed Python 3.7+
-* You have a Mac/Linux/Windows machine.
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Installing My First Dash App
+## Features
 
-To install the app, follow these steps:
+- **Interactive map:** Visualization of fires, affected areas, and deployed resources.
+- **Drone monitoring:** Activate the algorithm to find the route the drone will take.
+- **Data loading:** Upload information collected by the drone to determine if there are fires.
+- **Reports:** Generation of detailed reports for post-incident analysis. (Planned for the future)
+- **Custom configuration:** Personalized settings for emergency and local users. (Planned for the future)
 
-1. Clone the repository:
-git clone https://github.com/yourusername/keepnai.git
-cd your-repo-name
-Copy
-2. Create a virtual environment:
-python3 -m venv venv
-Copy
-3. Activate the virtual environment:
-* On macOS and Linux:
-  ```
-  source venv/bin/activate
-  ```
-* On Windows:
-  ```
-  .\venv\Scripts\activate
-  ```
+## Technologies Used
 
-4. Install the required packages:
-pip install -r requirements.txt
-Copy
-## Using My First Dash App
+- **Frontend:**
+  - [Next.js](https://nextjs.org/)
+  - [React.js](https://reactjs.org/)
+  - [Styled-Components](https://styled-components.com/)
+  - [React Router](https://reactrouter.com/)
+  - [Google Fonts](https://fonts.google.com/)
 
-To use the app, follow these steps:
+- **Backend:**
+  - [Flask](https://flask.palletsprojects.com/)
 
-1. Ensure you're in the project directory and your virtual environment is activated.
+- **Others:**
+  - [Node.js](https://nodejs.org/)
+  - [Git](https://git-scm.com/)
+  - [GitHub](https://github.com/)
 
-2. Run the app:
-python app.py
+## Project Structure
 
-3. Open your web browser and go to `http://127.0.0.1:8050/`
+The project is divided into two main sections:
 
-4. You should see a dropdown menu and a bar chart. Select different cities from the dropdown to see the fruit data change.
+- **Frontend:** In the `frontend` directory, you'll find the Next.js application that includes all the user interface components.
+- **Backend (Future):** In the `backend` directory, there are plans to include the Flask API for data management and server logic.
 
-## Contributing to My First Dash App
+## Installation
 
-To contribute to the app, follow these steps:
+Follow these steps to set up the project in your local environment:
 
-1. Fork this repository.
-2. Create a branch: `git checkout -b <branch_name>`.
-3. Make your changes and commit them: `git commit -m '<commit_message>'`
-4. Push to the original branch: `git push origin <project_name>/<location>`
-5. Create the pull request.
+1. **Clone the repository:**
 
-Alternatively, see the GitHub documentation on [creating a pull request](https://help.github.com/articles/creating-a-pull-request/).
+   ```bash
+   git clone https://github.com/AzulRK22/fire-eye-dashboard.git
+   cd fire-eye-dashboard
+   ```
 
-## Contact
+2. **Set up the frontend:**
 
-If you want to contact me, you can reach me at `<your_email@example.com>`.
+   ```bash
+   cd frontend
+   npm install
+   ```
 
-## License
+3. **Set up the backend:**
 
-This project uses the following license: `<KeepNAI>`.
-You can now copy this entire block of text and paste it into your README.md file. Remember to replace the placeholders (like yourusername, your-repo-name, <your_email@example.com>, and <KeepNAI>) with your actual information.
-After pasting this into your README.md file in VS Code, you can save the file and then commit and push it to your GitHub repository as previously instructed.
-Is there anything else you'd like to modify in the README or any other part of your project?
+   ```bash
+   cd ../backend
+   python -m venv venv
+   source venv/bin/activate
+   pip install -r requirements.txt
+   flask db upgrade
+   ```
+
+4. **Start the frontend:**
+
+   ```bash
+   cd ../frontend
+   npm run dev
+   ```
+
+5. **Start the backend:**
+
+   ```bash
+   flask run
+   flask --app app.py --debug run
+   ```
+
+6. **Access the application:**
+
+   Open your browser and go to http://localhost:3000 to see the application running.
+
+## Usage
+
+Main Screen: From here, users can choose to identify themselves as emergency personnel or local users to access the corresponding dashboard.
+Emergency Personnel Dashboard: Visualize incidents, available resources, monitor in real-time, and generate reports.
+Local User Dashboard: Access reports and customized settings for local users.
+
+## Contributing
+
+If you wish to contribute to the project, follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/new-functionality`).
+3. Make your changes and commit (`git commit -am 'Add new functionality'`).
+4. Push your branch (`git push origin feature/new-functionality`).
+5. Open a Pull Request.
+
+## Screenshots
+
+### Analysis
+![Analysis Screenshot](sample_data/analysis.png)
+
+### Monitoring
+![Monitoring Screenshot](sample_data/monitoring.png)
+
+### Virtual Assistant
+![Virtual Assistant Screenshot](sample_data/virtual_assistant.png)
