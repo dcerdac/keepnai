@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const OPENAI_API_KEY = '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'
+const OPENAI_API_KEY = ''
 const OPENAI_API_URL = 'https://api.openai.com/v1/completions';
 
 export const getSafetyRecommendations = async (weather) => {
