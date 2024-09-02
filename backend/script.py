@@ -8,7 +8,7 @@ import csv
 
 i = 0
 # OpenAI API Key
-api_key = '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'
+api_key = ''
 # Function to encode the image
 def encode_image(image_path):
   with open(image_path, "rb") as image_file:
